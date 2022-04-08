@@ -8,6 +8,7 @@
   "author": "joshy",
   "license": "",
   "dependencies": {
+	  "http" : ""
   },
   "devDependencies": {
     "nodemon": "^2.0.5"
