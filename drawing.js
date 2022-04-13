@@ -49,6 +49,25 @@ canv.addEventListener("mouseup", (e) => {
 	isErasing = false;
 });
 
+canv.addEventListener("touchstart",(e) => {
+	isDrawing = true;
+});
+canv.addEventListener("touchend",(e) => {
+	isDrawing = false;
+});
+canv.addEventListener("touchcancel",(e) => {
+	console.log('a');
+});
+canv.addEventListener("touchmove",(e) => {
+	if(isDrawing){
+		pixel_x = parseInt(16 * e.clientX/canv.width) * parseInt(canv.width / 16);
+		pixel_y = parseInt(16 * e.clientY/canv.width) * parseInt(canv.width / 16);
+		ctx.fillRect(pixel_x,pixel_y,parseInt(canv.width / 16), parseInt(canv.width / 16));
+	}
+});
+
+
+
 canv.addEventListener("click", (e) => {
 	pixel_x = parseInt(16 * e.clientX/canv.width) * parseInt(canv.width / 16);
 	pixel_y = parseInt(16 * e.clientY/canv.width) * parseInt(canv.width / 16);
