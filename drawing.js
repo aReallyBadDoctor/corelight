@@ -65,6 +65,9 @@ window.addEventListener("mouseup", (e) => {
 
 canv.addEventListener("touchstart",(e) => {
 	isDrawing = true;
+	if (e.target.nodeName !== 'INPUT') {
+        e.preventDefault();
+    }
 });
 window.addEventListener("touchend",(e) => {
 	isDrawing = false;
@@ -73,7 +76,9 @@ canv.addEventListener("touchcancel",(e) => {
 	console.log('a');
 });
 canv.addEventListener("touchmove",(e) => {
-	e.preventDefault();
+	if (e.target.nodeName !== 'INPUT') {
+        e.preventDefault();
+    }
 	if(isDrawing){
 		pixel_x = parseInt(16 * e.clientX/canv.width) * parseInt(canv.width / 16);
 		pixel_y = parseInt(16 * e.clientY/canv.width) * parseInt(canv.width / 16);
