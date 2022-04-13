@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const http = require('http');
 const fs = require('fs');
 
@@ -16,12 +15,3 @@ http.createServer((req,res) => {
 		res.end(data);
 	});
 }).listen(port);
-=======
-var http = require("http");
-
-http.createServer(function (req, res){
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('Hello World\n');
-}).listen(8080);
-console.log(11000);
->>>>>>> parent of 34e40ec (test)
