@@ -8,7 +8,11 @@
   "author": "joshy",
   "license": "",
   "dependencies": {
+<<<<<<< HEAD
+    "express": "^4.17.3"
+=======
 	  "http" : ""
+>>>>>>> parent of 34e40ec (test)
   },
   "devDependencies": {
     "nodemon": "^2.0.5"
