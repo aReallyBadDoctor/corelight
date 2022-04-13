@@ -64,16 +64,16 @@ window.addEventListener("mouseup", (e) => {
 });
 
 canv.addEventListener("touchstart",(e) => {
-	e.preventDefault();
 	isDrawing = true;
 });
-canv.addEventListener("touchend",(e) => {
+window.addEventListener("touchend",(e) => {
 	isDrawing = false;
 });
 canv.addEventListener("touchcancel",(e) => {
 	console.log('a');
 });
 canv.addEventListener("touchmove",(e) => {
+	e.preventDefault();
 	if(isDrawing){
 		pixel_x = parseInt(16 * e.clientX/canv.width) * parseInt(canv.width / 16);
 		pixel_y = parseInt(16 * e.clientY/canv.width) * parseInt(canv.width / 16);
