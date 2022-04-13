@@ -2,7 +2,21 @@ const canv = document.getElementById("canvas");
 canv.height = Math.min(800,Math.min(window.innerHeight,window.innerWidth));
 canv.width = canv.height;
 
+const colorPick = document.getElementById("colors");
+colorPick.width = canv.width/8;
+colorPick.height = canv.width;
+
+colorPick.getContext("2d").fillStyle = "#f00";
+colorPick.getContext("2d").fillRect(0,0,1000,1000);
+
 const ctx = canvas.getContext("2d");
+
+window.addEventListener("resize", (e) => {
+	canv.height = Math.min(800,Math.min(window.innerHeight,window.innerWidth));
+	canv.width = canv.height;
+	colorPick.width = canv.width/8;
+	colorPick.height = canv.width;
+});
 
 ctx.fillStyle = "#f08";
 
@@ -44,12 +58,13 @@ canv.addEventListener("mousedown", (e) => {
 	}
 	
 });
-canv.addEventListener("mouseup", (e) => {
+window.addEventListener("mouseup", (e) => {
 	isDrawing = false;
 	isErasing = false;
 });
 
 canv.addEventListener("touchstart",(e) => {
+	e.preventDefault();
 	isDrawing = true;
 });
 canv.addEventListener("touchend",(e) => {
@@ -69,9 +84,12 @@ canv.addEventListener("touchmove",(e) => {
 
 
 canv.addEventListener("click", (e) => {
+	buf = ctx.fillStyle;
+	ctx.fillStyle = "#0f0";
 	pixel_x = parseInt(16 * e.clientX/canv.width) * parseInt(canv.width / 16);
 	pixel_y = parseInt(16 * e.clientY/canv.width) * parseInt(canv.width / 16);
 	ctx.fillRect(pixel_x,pixel_y,parseInt(canv.width / 16), parseInt(canv.width / 16));
+	ctx.fillStyle = buf;
 });
 
 function drawCursor(){
