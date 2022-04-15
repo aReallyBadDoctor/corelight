@@ -1,24 +1,11 @@
 const http = require('http');
 const fs = require('fs');
-const ws = require('ws');
+const WebSocketServer = require('ws').Server;
+
 
 const port = process.env.PORT || 3000;
 
-
-const ping_payload = ['ping'];
-
-const WebSocketServer = require('ws').Server;
-const wss = new WebSocketServer({port:8081});
-wss.on('connection', ((ws) => {
-	ws.on('message', (message) => {
-		console.log('message:' + message);
-	});
-	ws.on('end', ()=>{
-		console.log("connection ended");
-	});
-}));
-
-/*http.createServer((req,res) => {
+var hs = http.createServer((req,res) => {
 	const fp = __dirname + (req.url === '/' ? '/index.html' : req.url);
 	fs.readFile(fp, (err, data) => {
 		if (err) {
@@ -29,4 +16,19 @@ wss.on('connection', ((ws) => {
 		res.writeHead(200);
 		res.end(data);
 	});
-}).listen(port);*/
+});
+
+var wss = new WebSocketServer(hs);
+wss.on('connection', ((ws) => {
+	console.log("client connected");
+	ws.on('message', (message) => {
+		console.log('message:' + message);
+	});
+	ws.on('end', ()=>{
+		console.log("connection ended");
+	});
+}));
+wss.on('listening', ()=>{console.log('WSS listening on port',config.get('port'))});
+wss.on('error', (e)=>{console.log("WSS error:", e);});
+hs.on('error', (e)=>{console.log("HS error:",e)});
+hs.listen(port);
