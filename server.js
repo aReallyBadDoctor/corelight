@@ -34,16 +34,12 @@ wss.on('connection', ((ws) => {
 				userID = data[2];
 			}
 			else{
+				connections[userID].target = data[2];
 			}
-			console.log(data);
 		}
 		else if(data[0] == 'lighting'){
 				connections[connections[userID].target].socket.send(JSON.stringify(data));
 		}
-		else{
-			console.log(data);
-		}
-		console.log(userID);
 	});
 	ws.on('end', ()=>{
 		delete connections[userID];
