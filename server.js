@@ -36,8 +36,10 @@ wss.on('connection', ((ws) => {
 			}
 			else{
 				connections[userID].target = data[2];
+				
 			}
 		}
+		console.log(connections);
 		console.log(data);
 	});
 	ws.on('end', ()=>{
