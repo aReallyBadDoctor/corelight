@@ -34,8 +34,6 @@ wss.on('connection', ((ws) => {
 				userID = data[2];
 			}
 			else{
-				connections[userID].target = userID;
-				ws.send(JSON.stringify(["response","binding",false]));
 			}
 			console.log(data);
 		}
@@ -45,6 +43,7 @@ wss.on('connection', ((ws) => {
 		else{
 			console.log(data);
 		}
+		console.log(userID);
 	});
 	ws.on('end', ()=>{
 		delete connections[userID];
