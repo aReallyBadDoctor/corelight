@@ -19,7 +19,7 @@ wss.on('connection', ((ws) => {
 	
 	console.log("userID ", userID, " connected");
 	
-	connections[userID] = {socket: ws,targetuserID};
+	connections[userID] = {socket: ws,target:userID};
 	ws.send(JSON.stringify(["setup", userID]));
 	ws.on('message', (message) => {
 		var data = JSON.parse(message);
@@ -29,6 +29,9 @@ wss.on('connection', ((ws) => {
 		else if(data[0] == "setup"){
 			if(data[1] == "light"){
 				connections[userID].isLight = true;
+				connections[data[2]] = connections[userID];
+				delete connections[userID];
+				userID = data[2];
 			}
 			else{
 				connections[userID].target = userID;
