@@ -140,7 +140,7 @@ var T = document.getElementById("target");
 T.onchange = function(){
 	var t = T.value;
 	var response = socket.send(JSON.stringify(["setup", 0, t]));
-}
+};
 
 socket.on("message", (m)=>{
 	message = JSON.parse(m);
@@ -151,6 +151,7 @@ socket.on("message", (m)=>{
 				alert("failed to bind to light");
 			}
 		}
+	}
 });
 
 async function playAnimation(){
