@@ -29,6 +29,7 @@ wss.on('connection', ((ws) => {
 		else if(data[0] == "setup"){
 			if(data[1] == "light"){
 				proxies[data[2]] = userID;
+				ws.send(JSON.stringify(["response","proxie_added",data[2]]));
 			}
 			else{
 				if(data[2] in connections){
