@@ -18,7 +18,7 @@ wss.on('connection', ((ws) => {
 	});
 }));
 
-http.createServer((req,res) => {
+/*http.createServer((req,res) => {
 	const fp = __dirname + (req.url === '/' ? '/index.html' : req.url);
 	fs.readFile(fp, (err, data) => {
 		if (err) {
@@ -29,4 +29,4 @@ http.createServer((req,res) => {
 		res.writeHead(200);
 		res.end(data);
 	});
-}).listen(port);
+}).listen(port);*/
