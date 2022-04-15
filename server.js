@@ -21,7 +21,7 @@ var wss = new WebSocketServer({server:hs});
 connections = {};
 wss.on('connection', ((ws,req) => {
 	var userID = new Date().getTime();
-	console.log(userID);
+	console.log(JSON.stringify(userID));
 	ws.send(userID);
 	ws.on('message', (message) => {
 		var data = JSON.parse(message);
