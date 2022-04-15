@@ -18,7 +18,6 @@ var hs = http.createServer((req,res) => {
 });
 
 var wss = new WebSocketServer({server:hs});
-this.wss = wss;
 connections = {};
 wss.on('connection', ((ws,req) => {
 	var userID = parseInt(req.url.substr(1),10);
