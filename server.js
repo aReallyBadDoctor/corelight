@@ -24,11 +24,11 @@ wss.on('connection', ((ws) => {
 	ws.on('message', (message) => {
 		var data = JSON.parse(message);
 		if(data[0] == "response"){
+			console.log("response");
 			return true;
 		}
 		else if(data[0] == "lighting"){
-			console.log(connections.keys)
-			console.log(connections[userID].target)
+			console.log("lighting");
 			connections[connections[userID].target].socket.send(JSON.stringify(data[1]));
 		}
 		else if(data[0] == "setup"){
