@@ -1,26 +1,20 @@
+const express = require('express');
 const http = require('http');
 const fs = require('fs');
 const WebSocketServer = require('ws').Server;
+const socketio = require('socket.io');
+
+const app = express();
 
 const port = process.env.PORT || 3000;
 
-var hs = http.createServer((req,res) => {
-	const fp = __dirname + (req.url === '/' ? '/index.html' : req.url);
-	console.log(req);
-	fs.readFile(fp, (err, data) => {
-		if (err) {
-			res.writeHead(404);
-			res.end(JSON.stringify(err));
-			return;
-		}
-		res.writeHead(200);
-		res.end(data);
-	});
-});
+const hs = http.createServer(app);
 
-var wss = new WebSocketServer({server:hs});
+var wss = socketio(hs);
+
 connections = {};
-wss.on('connection', ((ws,req) => {
+
+wss.on('connection', ((ws) => {
 	var userID = ("000000"+(new Date()).getTime().toString(16)).slice(-6);
 	
 	console.log("userID ", userID, " connected");
@@ -57,4 +51,5 @@ wss.on('connection', ((ws,req) => {
 wss.on('listening', ()=>{console.log('WSS listening on port',port)});
 wss.on('error', (e)=>{console.log("WSS error:", e);});
 hs.on('error', (e)=>{console.log("HS error:",e)});
+app.use('/',express.static(__dirname + '/public'));
 hs.listen(port);

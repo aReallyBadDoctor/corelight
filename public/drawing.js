@@ -1,3 +1,5 @@
+let socket = io();
+
 class color{
 	constructor(r,g,b){
 		var tr = ("0"+ r.toString(16)).slice(-2);
@@ -242,17 +244,6 @@ function resetCanv(context){
 	ctx.fillStyle = buf;
 }
 
-const color_wheel = document.getElementById('color_wheel');
-function drawColorWheel(e){
-	colorctx.drawImage(color_wheel,0,0,colorPick.width,colorPick.width);
-	buf = colorctx.fillStyle;
-	colorctx.fillStyle = "black";
-	colorctx.beginPath();
-	colorctx.ellipse(e.x,e.screenY,5,5,0,0,7);
-	colorctx.stroke();
-	colorctx.fillStyle = buf;
-}
-
 picking = false;
 colorPick.addEventListener("click", (e) => {
 	pixel_x = parseInt(e.offsetX/colorPick.width * 2);
@@ -291,5 +282,9 @@ buttons[2].addEventListener("click", (e) => {
 	ANIM.activeFrame = Math.min(ANIM.length - 1, ANIM.activeFrame + 1)
 	drawFrame();
 });
-
+var T = document.getElementById("target");
+T.onchange = function(){
+	var t = T.value;
+	var response = socket.send(JSON.stringify(["setup", 0, t]));
+}
 
