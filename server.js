@@ -13,7 +13,7 @@ const hs = http.createServer(app);
 var wss = socketio(hs);
 
 connections = {};
-
+proxies = {};
 wss.on('connection', ((ws) => {
 	var userID = ("000000"+(new Date()).getTime().toString(16)).slice(-6);
 	
@@ -28,13 +28,13 @@ wss.on('connection', ((ws) => {
 		}
 		else if(data[0] == "setup"){
 			if(data[1] == "light"){
-				connections[data[2]] = connections[userID];
-				delete connections[userID];
-				userID = data[2];
+				proxies[data[2]] = userID;
 			}
 			else{
 				if(data[2] in connections){
 					connections[userID].target = data[2];
+				}else if(proxies[data[2]] in connections){
+					connections[userID].target = proxies[data[2]];
 				}
 			}
 		}
