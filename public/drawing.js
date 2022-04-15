@@ -242,7 +242,8 @@ canv.addEventListener("click", (e) => {
 	pixel_y = Math.min(15,pixel_y);
 	ANIM.active.data[pixel_y][pixel_x] = activeColor;
 	if(synced){
-		socket.send(JSON.stringify(["lighting","spot",pixel_y,pixel_x,activeColor.C]));
+		//socket.send(JSON.stringify(["lighting","spot",pixel_y,pixel_x,activeColor.C]));
+		socket.send(JSON.stringify(["lighting","fill",ANIM]));
 	}
 });
 
