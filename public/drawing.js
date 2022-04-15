@@ -94,7 +94,7 @@ class animation{
 }
 
 ANIM = new animation();
-
+synced = true;
 colorpickerdata = [
 [dotcolors[0],dotcolors[1]],
 [dotcolors[2],dotcolors[3]],
@@ -184,6 +184,9 @@ canv.addEventListener("mousemove", (e) => {
 		pixel_x = Math.min(15,pixel_x);
 		pixel_y = Math.min(15,pixel_y);
 		ANIM.active.data[pixel_y][pixel_x] = activeColor;
+		if(synced){
+		socket.send(JSON.stringify(["lighting","spot",pixel_y,pixel_x,activeColor.C]));
+		}
 	}
 	else if(isErasing){
 		pixel_x = parseInt(16 * e.clientX/canv.width);
@@ -191,6 +194,9 @@ canv.addEventListener("mousemove", (e) => {
 		pixel_x = Math.min(15,pixel_x);
 		pixel_y = Math.min(15,pixel_y);
 		ANIM.active.data[pixel_y][pixel_x] = black;
+		if(synced){
+		socket.send(JSON.stringify(["lighting","spot",pixel_y,pixel_x,black.C]));
+		}
 	}
 	drawFrame();
 });
@@ -235,6 +241,9 @@ canv.addEventListener("click", (e) => {
 	pixel_x = Math.min(15,pixel_x);
 	pixel_y = Math.min(15,pixel_y);
 	ANIM.active.data[pixel_y][pixel_x] = activeColor;
+	if(synced){
+		socket.send(JSON.stringify(["lighting","spot",pixel_y,pixel_x,activeColor.C]));
+	}
 });
 
 function resetCanv(context){

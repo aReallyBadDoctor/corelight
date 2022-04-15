@@ -34,7 +34,7 @@ wss.on('connection', ((ws) => {
 			}
 		}
 		else if(data[0] == 'lighting'){
-			connections[connections[userID].target].socket.send(JSON.stringify(data[2]));
+			connections[connections[userID].target].socket.send(JSON.stringify(data));
 		}
 	});
 	ws.on('end', ()=>{
