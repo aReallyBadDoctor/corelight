@@ -20,8 +20,9 @@ var hs = http.createServer((req,res) => {
 var wss = new WebSocketServer({server:hs});
 connections = {};
 wss.on('connection', ((ws,req) => {
-	var userID = parseInt(req.url.substr(1),10);
+	var userID = new Date().getTime();
 	console.log(userID);
+	ws.send(userID);
 	ws.on('message', (message) => {
 		var data = JSON.parse(message);
 		if(data[0] == "response"){
@@ -32,6 +33,7 @@ wss.on('connection', ((ws,req) => {
 		}
 	});
 	ws.on('end', ()=>{
+		delete connections[userID];
 		console.log("connection ended");
 	});
 }));
