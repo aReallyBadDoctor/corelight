@@ -27,6 +27,7 @@ wss.on('connection', ((ws) => {
 			return true;
 		}
 		else if(data[0] == "lighting"){
+			console.log(connections.keys)
 			console.log(connections[userID].target)
 			connections[connections[userID].target].socket.send(JSON.stringify(data[1]));
 		}
