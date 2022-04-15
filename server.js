@@ -32,7 +32,7 @@ wss.on('connection', ((ws,req) => {
 			return true;
 		}
 		else if(data[0] == "lighting"){
-			connections[connections[userID].target].ws.send(JSON.stringify("HELLO"));
+			connections[connections[userID]['target']]['ws'].send(JSON.stringify("HELLO"));
 		}
 		else if(data[0] == "setup"){
 			if(data[1] == "light"){
