@@ -28,7 +28,6 @@ wss.on('connection', ((ws) => {
 		}
 		else if(data[0] == "setup"){
 			if(data[1] == "light"){
-				connections[userID].isLight = true;
 				connections[data[2]] = connections[userID];
 				delete connections[userID];
 				userID = data[2];
@@ -38,7 +37,8 @@ wss.on('connection', ((ws) => {
 			}
 		}
 		else if(data[0] == 'lighting'){
-				connections[connections[userID].target].socket.send(JSON.stringify(data));
+			console.log(connections);	
+			connections[connections[userID].target].socket.send(JSON.stringify(data));
 		}
 	});
 	ws.on('end', ()=>{
