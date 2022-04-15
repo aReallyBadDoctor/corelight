@@ -22,7 +22,7 @@ connections = {};
 wss.on('connection', ((ws,req) => {
 	var userID = new Date().getTime();
 	console.log(JSON.stringify(userID));
-	ws.send(userID);
+	ws.send(JSON.stringify(userID));
 	ws.on('message', (message) => {
 		var data = JSON.parse(message);
 		if(data[0] == "response"){
