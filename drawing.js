@@ -291,3 +291,5 @@ buttons[2].addEventListener("click", (e) => {
 	ANIM.activeFrame = Math.min(ANIM.length - 1, ANIM.activeFrame + 1)
 	drawFrame();
 });
+
+
