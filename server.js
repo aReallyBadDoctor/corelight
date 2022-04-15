@@ -24,22 +24,19 @@ wss.on('connection', ((ws) => {
 	ws.on('message', (message) => {
 		var data = JSON.parse(message);
 		if(data[0] == "response"){
-			console.log("response");
 			return true;
-		}
-		else if(data[0] == "lighting"){
-			console.log("lighting");
-			connections[connections[userID].target].socket.send(JSON.stringify(data[1]));
 		}
 		else if(data[0] == "setup"){
 			if(data[1] == "light"){
 			}
 			else{
 				connections[userID].target = data[2];
-				
 			}
 		}
-		console.log(connections);
+		else{
+			connections[connections[userID].target].socket.send(JSON.stringify("aaaa"));
+		}
+		//console.log(connections);
 		console.log(data);
 	});
 	ws.on('end', ()=>{
