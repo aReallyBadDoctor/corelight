@@ -19,7 +19,7 @@ wss.on('connection', ((ws) => {
 	
 	console.log("userID ", userID, " connected");
 	
-	connections[userID] = {socket: ws,target:userID};
+	connections[userID] = {socket: ws};
 	ws.send(JSON.stringify(["setup", userID]));
 	ws.on('message', (message) => {
 		var data = JSON.parse(message);
@@ -33,12 +33,15 @@ wss.on('connection', ((ws) => {
 				userID = data[2];
 			}
 			else{
-				connections[userID].target = data[2];
+				if(data[2] in connections){
+					connections[userID].target = data[2];
+				}
 			}
 		}
 		else if(data[0] == 'lighting'){
-			console.log(connections);	
-			connections[connections[userID].target].socket.send(JSON.stringify(data));
+			if(connections[userID].target in connections){
+				connections[connections[userID].target].socket.send(JSON.stringify(data));
+			}
 		}
 	});
 	ws.on('end', ()=>{
