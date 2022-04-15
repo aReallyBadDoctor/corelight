@@ -42,7 +42,7 @@ wss.on('connection', ((ws) => {
 			}
 		}
 		else if(data[0] == 'lighting'){
-			if(typeof connections[userID].target !== undefined){
+			if((typeof connections[userID].target) !== undefined){
 				connections[connections[userID].target].socket.send(JSON.stringify(data));
 			}
 		}
