@@ -31,14 +31,8 @@ wss.on('connection', ((ws) => {
 				connections[userID].isLight = true;
 			}
 			else{
-				if(connections[data[2]].isLight){
-					connections[userID].target = data[2];
-					ws.send(JSON.stringify(["response","binding",true]));
-				}
-				else{
-					connections[userID].target = userID;
-					ws.send(JSON.stringify(["response","binding",false]));
-				}
+				connections[userID].target = data[2];
+				ws.send(JSON.stringify(["response","binding",true]));
 			}
 		}
 		else if(data[0] == 'lighting'){
