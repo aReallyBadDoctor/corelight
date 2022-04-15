@@ -21,7 +21,7 @@ var hs = http.createServer((req,res) => {
 var wss = new WebSocketServer({server:hs});
 connections = {};
 wss.on('connection', ((ws,req) => {
-	var userID = (new Date()).getTime().toString(16).slice[-6];
+	var userID = ("000000"+(new Date()).getTime().toString(16)).slice(-6);
 	
 	console.log("userID ", userID, " connected");
 	
