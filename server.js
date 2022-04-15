@@ -18,7 +18,7 @@ var hs = http.createServer((req,res) => {
 	});
 });
 
-var wss = new WebSocketServer(hs);
+var wss = new WebSocketServer({hs});
 wss.on('connection', ((ws) => {
 	console.log("client connected");
 	ws.on('message', (message) => {
