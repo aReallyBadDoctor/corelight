@@ -20,7 +20,7 @@ wss.on('connection', ((ws) => {
 	console.log("userID ", userID, " connected");
 	
 	connections[userID] = {socket: ws};
-	ws.send(JSON.stringify(userID));
+	ws.send(JSON.stringify(["setup", userID]));
 	ws.on('message', (message) => {
 		var data = JSON.parse(message);
 		if(data[0] == "response"){
