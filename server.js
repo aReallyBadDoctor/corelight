@@ -28,13 +28,23 @@ wss.on('connection', ((ws) => {
 		}
 		else if(data[0] == "setup"){
 			if(data[1] == "light"){
+				connections[userID].isLight = true;
 			}
 			else{
-				connections[userID].target = data[2];
+				if(connections[data[2]].isLight){
+					connections[userID].target = data[2];
+					ws.send(JSON.stringify(["response","binding",true]);
+				}
+				else{
+					connections[userID].target = userID;
+					ws.send(JSON.stringify(["response","binding",false]);
+				}
 			}
 		}
 		else if(data[0] == 'lighting'){
-			connections[connections[userID].target].socket.send(JSON.stringify(data));
+			if(typeof connections[userID].target !== undefined){
+				connections[connections[userID].target].socket.send(JSON.stringify(data));
+			}
 		}
 	});
 	ws.on('end', ()=>{

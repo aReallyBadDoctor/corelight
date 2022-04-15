@@ -134,6 +134,25 @@ function drawFrame(){
 	}
 }
 
+
+
+var T = document.getElementById("target");
+T.onchange = function(){
+	var t = T.value;
+	var response = socket.send(JSON.stringify(["setup", 0, t]));
+}
+
+socket.on("message", (m)=>{
+	message = JSON.parse(m);
+	if(message[0] == "response"){
+		if(message[1] == "binding"){
+			if(!message[2]){
+				T.value = "";
+				alert("failed to bind to light");
+			}
+		}
+});
+
 async function playAnimation(){
 	var delay = 1000 / ANIM.framerate;
 	saved_frame = ANIM.activeFrame;
@@ -292,9 +311,4 @@ buttons[2].addEventListener("click", (e) => {
 	ANIM.activeFrame = Math.min(ANIM.length - 1, ANIM.activeFrame + 1)
 	drawFrame();
 });
-var T = document.getElementById("target");
-T.onchange = function(){
-	var t = T.value;
-	var response = socket.send(JSON.stringify(["setup", 0, t]));
-}
 
