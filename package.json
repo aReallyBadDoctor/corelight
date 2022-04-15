@@ -8,7 +8,8 @@
   "author": "joshy",
   "license": "",
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+	"ws": "^8.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.5"
